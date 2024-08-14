@@ -177,20 +177,59 @@ for (i in seq_along(tigers)){
   big_cats[i] <- total_cats
 }
 big_cats
-
-
 ```
 
 
+##  Now moving into the afternoon...
+
+```{r}
+mean_mtcars <- vector(mode="numeric", length=ncol(mtcars))
+
+for(i in 1:ncol(mtcars)) {
+  mean_value <- mean(mtcars[[i]], na.rm=TRUE)
+  mean_mtcars[i] <- mean_value
+}
+mean_mtcars
+```
+
+```{r}
+library(palmerpenguins)
+
+for (i in seq_along(penguins)) {
+  if (is.numeric(penguins[[i]])) {
+  penguin_median <- median(penguins[[i]], na.rm=TRUE)
+  print(penguin_median)
+} else {
+  print("non-numeric column")
+}
+}
+```
+
+```{r}
+# using the apply function to save us a whole lot of time
+
+apply(X =mtcars, MARGIN =2, FUN =mean)
+
+#now we can get the same result from this single line as the result we got from the code chunk starting line 186. 
+```
+
+```{r}
+library(tidyverse)
+
+penguins %>%
+  group_by(species) %>%
+  summarize(across(where(is.numeric), mean, na.rm=TRUE))
+```
+
+```{r}
+# now using the map function
+library(purrr)
+
+map(.x= mtcars, .f = mean)
+map_df(.x=mtcars, .f=mean)
 
 
-
-
-
-
-
-
-
+```
 
 
 
